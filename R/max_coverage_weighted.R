@@ -1,6 +1,6 @@
 #' Solve the Maximal Covering Location Problem
 #'
-#' `max_coverage` solves the binary optimisation problem known as the
+#' `max_coverage_weighted` solves the binary optimisation problem known as the
 #'   "maximal covering location problem" as described by Church
 #'   (http://www.geo .ucsb.edu/~forest/G294download/MAX_COVER_RLC_CSR.pdf).
 #'   This package was implemented to make it easier to solve this problem in the
@@ -94,7 +94,7 @@ max_coverage_weighted <- function(existing_facility,
     user <- tibble::rowid_to_column(user, var = "user_id")
 
     # if existing_facility is null, use all users for the next step
-    if(is.null(existing_facility)){
+    if(is.null(existing_facility) | nrow(existing_facility) == 0){
       user_not_covered <- user
     }else{
       user_not_covered <- find_users_not_covered(existing_facility,
