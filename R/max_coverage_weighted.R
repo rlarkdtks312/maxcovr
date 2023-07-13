@@ -93,15 +93,20 @@ max_coverage_weighted <- function(existing_facility,
     # give user an ID
     user <- tibble::rowid_to_column(user, var = "user_id")
 
-    # if existing_facility is null, use all users for the next step
-    if(is.null(existing_facility) | nrow(existing_facility) == 0){
-      user_not_covered <- user
-    }else{
-      user_not_covered <- find_users_not_covered(existing_facility,
-                                                 user,
-                                                 distance_cutoff,
-                                                 d_existing_user = d_existing_user)
-    }
+    # # if existing_facility is null, use all users for the next step
+    # if(is.null(existing_facility) | nrow(existing_facility) == 0){
+    #   user_not_covered <- user
+    # }else{
+    #   user_not_covered <- find_users_not_covered(existing_facility,
+    #                                              user,
+    #                                              distance_cutoff,
+    #                                              d_existing_user = d_existing_user)
+    # }
+    
+    user_not_covered <- find_users_not_covered(existing_facility,
+                                               user,
+                                               distance_cutoff,
+                                               d_existing_user = d_existing_user)
     
     A <- binary_distance_matrix(facility = proposed_facility,
                                 user = user_not_covered,
